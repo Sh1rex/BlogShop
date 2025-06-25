@@ -9,12 +9,15 @@
 <body>
     <header class="header">
         <div class="container-header">
-            <a href="/" class="home"><img src="{% static 'img/home.png' %}" alt="" class="home">Home</a>
-            <div>
-                <a href="/">Login</a>
-            </div>
+            <a href="/" class="link-header">
+                <img src="{% static 'img/home.png' %}" alt="" class="home">Home
+            </a>
+            <a href="{% url "user:registration" %}" class="link-header"><h1>Login</h1></a>
         </div>
-    {% block content %}
-    {% endblock content %}
+    </header>
+    <div class="content">
+        {% block content %}
+        {% endblock content %}
+    </div>
 </body>
 </html>
