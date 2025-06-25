@@ -1,0 +1,20 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{% block title %}BlogShop{% endblock title %}</title>
+    <link rel="stylesheet" href="{% static 'css/base.css' %}">
+</head>
+<body>
+    <header class="header">
+        <div class="container-header">
+            <a href="/" class="home"><img src="{% static 'img/home.png' %}" alt="" class="home">Home</a>
+            <div>
+                <a href="/">Login</a>
+            </div>
+        </div>
+    {% block content %}
+    {% endblock content %}
+</body>
+</html>
