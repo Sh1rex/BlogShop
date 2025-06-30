@@ -12,7 +12,13 @@
             <a href="/" class="link-header">
                 <img src="{% static 'img/home.png' %}" alt="" class="home">Home
             </a>
-            <a href="{% url "user:registration" %}" class="link-header"><h1>Login</h1></a>
+            <h1>
+                {% if user.is_authenticated %}
+                    <a href="{% url 'users:profile' %}" class="link-header">{{ user }}</a>
+                {% else %}
+                    <a href="{% url "users:login" %}" class="link-header">Login </a>
+                {% endif %}
+            </h1>
         </div>
     </header>
     <div class="content">

@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}
+    Profile
+{% endblock title %}
+
+{% block content %}
+    <h1>Welcome to profile, {{user}}</h1>
+    <form action="{% url 'users:logout' %}" method="post">
+        {% csrf_token %}
+        <input type="submit" value="Logout" class="button-submit">
+    </form>
+{% endblock content %}
