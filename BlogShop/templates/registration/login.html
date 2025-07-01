@@ -6,10 +6,11 @@
 {% endblock title %}
 
 {% block content %}
-    <form action="{% url 'users:login' %}" method="post">
+    <form method="post">
         {{ form }}
         {% csrf_token %}
         <input type="submit" value="Login" class="button-submit">
     </form>
+    <a href="{% url 'password_reset' %}" class="reg-a">Forgot password?</a><br>
     <a href="{% url 'users:register' %}" class="reg-a">Create new account</a>
 {% endblock content %}
