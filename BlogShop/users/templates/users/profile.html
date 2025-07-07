@@ -7,6 +7,16 @@
 
 {% block content %}
     <h1>Welcome to profile {{user}},<br>{{user.first_name}} {{user.last_name}}</h1>
+    <img src="{% if user.profile.profileimg %}
+            {{user.profile.profileimg.url}}
+        {% else %}
+            {% static 'img/profile-icon.jpg' %}
+        {% endif %}" alt="">
+    <form method="post" enctype="multipart/form-data">
+        {{form}}
+        {% csrf_token %}
+        <input type="submit" value="Change avatar" class="button-submit">
+    </form>
     <form action="{% url 'logout' %}" method="post">
         {% csrf_token %}
         <input type="submit" value="Logout" class="button-submit">
