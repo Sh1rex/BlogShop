@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect
-from .forms import UserCreationForm
+from .forms import UserCreationForm, ProfileForm
 
 def register(request):
     if request.method == 'POST':
@@ -15,5 +15,14 @@ def register(request):
 
 def profile(request):
     if request.user.is_authenticated:
-        return render(request, 'users/profile.html')
+        if request.method == 'POST':
+            profile = request.user.profile
+            form = ProfileForm(request.POST, request.FILES, instance=profile)
+            if form.is_valid():
+                form.save()
+        else:
+            form = ProfileForm()
+        return render(request, 'users/profile.html', {
+            'form': form,
+        })
     return redirect('login')
