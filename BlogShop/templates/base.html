@@ -9,16 +9,30 @@
 <body>
     <header class="header">
         <div class="container-header">
-            <a href="/" class="link-header">
-                <img src="{% static 'img/home.png' %}" alt="" class="home">Home
-            </a>
-            <h1>
-                {% if user.is_authenticated %}
-                    <a href="{% url 'users:profile' %}" class="link-header">{{ user }}</a>
-                {% else %}
-                    <a href="{% url "login" %}" class="link-header">Login </a>
-                {% endif %}
-            </h1>
+            <div class="home-box">
+                <a href="/" class="home-link a-header">
+                    <img src="{% static 'img/home.png' %}" alt="" class="home-img">Home
+                </a>
+            </div>
+            <div class="user-box">
+            {% if user.is_authenticated %}
+                <a href="{% url 'users:profile' %}" class="user-link a-header">
+                        {{ user }}
+                    <img src="{% if user.profile.profileimg %}
+                        {{user.profile.profileimg.url}}
+                    {% else %}
+                        {% static 'img/profile-icon.jpg' %}
+                    {% endif %}" alt="" class="avatar">
+                    <div class="gear">
+                        <a href="{% url 'users:settings' %}" class="gear">
+                            <img src="{% static 'img/gear_PNG48.png' %}" alt="" class="gear-img">
+                        </a>
+                    </div>
+                </a>
+            {% else %}
+                <a href="{% url "login" %}" class="user-link a-header">Login</a>
+            {% endif %}
+            </div>
         </div>
     </header>
     <div class="content">
