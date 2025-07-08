@@ -6,18 +6,17 @@
 {% endblock title %}
 
 {% block content %}
-    <h1>Welcome to Profile!</h1>
     <div class="profile">
-        <img src="{% if user.profile.profileimg %}
-            {{user.profile.profileimg.url}}
+        <img src="{% if profile.profileimg %}
+            {{profile.profileimg.url}}
         {% else %}
             {% static 'img/profile-icon.jpg' %}
         {% endif %}" alt="" class="avatar">
         <div class="username">
-            {{user}}
+            {{profile.user}}
         </div>
         <div class="NF">
-            {{user.first_name}} {{user.last_name}}
+            {{profile.user.first_name}} {{profile.user.last_name}}
         </div>
     </div>
 {% endblock content %}

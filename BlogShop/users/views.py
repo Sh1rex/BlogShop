@@ -1,5 +1,7 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from .forms import UserCreationForm, ProfileForm
+from .models import Profile
+from django.urls import reverse
 
 def register(request):
     if request.method == 'POST':
@@ -13,15 +15,20 @@ def register(request):
         'form': form,
     })
 
-def profile(request):
+def own_profile(request):
+    return redirect(reverse('users:profile', args=[request.user.profile.slug]))
+             
+def profile(request, slug):
+    profile = get_object_or_404(Profile, slug=slug)
     if request.user.is_authenticated:
-        if request.method == 'POST':
-            profile = request.user.profile
-            form = ProfileForm(request.POST, request.FILES, instance=profile)
-            if form.is_valid():
-                form.save()
-        return render(request, 'users/profile.html')
-    return redirect('login')
+        if profile.user == request.user:
+            if request.method == 'POST':
+                form = ProfileForm(request.POST, request.FILES, instance=profile)
+                if form.is_valid():
+                    form.save()
+    return render(request, 'users/profile.html',{
+        'profile': profile
+    })
 
 def settings(request):
     if request.user.is_authenticated:
