@@ -6,19 +6,18 @@
 {% endblock title %}
 
 {% block content %}
-    <h1>Welcome to profile {{user}},<br>{{user.first_name}} {{user.last_name}}</h1>
-    <img src="{% if user.profile.profileimg %}
+    <h1>Welcome to Profile!</h1>
+    <div class="profile">
+        <img src="{% if user.profile.profileimg %}
             {{user.profile.profileimg.url}}
         {% else %}
             {% static 'img/profile-icon.jpg' %}
-        {% endif %}" alt="">
-    <form method="post" enctype="multipart/form-data">
-        {{form}}
-        {% csrf_token %}
-        <input type="submit" value="Change avatar" class="button-submit">
-    </form>
-    <form action="{% url 'logout' %}" method="post">
-        {% csrf_token %}
-        <input type="submit" value="Logout" class="button-submit">
-    </form>
+        {% endif %}" alt="" class="avatar">
+        <div class="username">
+            {{user}}
+        </div>
+        <div class="NF">
+            {{user.first_name}} {{user.last_name}}
+        </div>
+    </div>
 {% endblock content %}

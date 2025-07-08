@@ -20,9 +20,13 @@ def profile(request):
             form = ProfileForm(request.POST, request.FILES, instance=profile)
             if form.is_valid():
                 form.save()
-        else:
-            form = ProfileForm()
-        return render(request, 'users/profile.html', {
+        return render(request, 'users/profile.html')
+    return redirect('login')
+
+def settings(request):
+    if request.user.is_authenticated:
+        form = ProfileForm()
+        return render(request, 'settings.html', {
             'form': form,
         })
     return redirect('login')
