@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}
+    Settings
+{% endblock title %}
+
+{% block content %}
+    <form action="{% url 'users:profile' %}" method="post" enctype="multipart/form-data">
+        {{form}}
+        {% csrf_token %}
+        <input type="submit" value="Change avatar" class="button-submit">
+    </form>
+    <form action="{% url 'logout' %}" method="post">
+        {% csrf_token %}
+        <input type="submit" value="Logout" class="button-submit">
+    </form>
+{% endblock content %}
