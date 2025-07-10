@@ -45,6 +45,8 @@ body{
 }
 
 .content{
+    display: flex;
+    flex-direction: column;
     margin-top: 20px;
     margin-left: 200px;
     margin-right: 200px;
@@ -78,12 +80,20 @@ body{
 }
 
 .profile{
+    position: sticky;
     display: flex;
     flex-direction: column;
     margin-left: auto;
     width: fit-content;
     align-items: center;
     color: black;
+}
+
+.description{
+    width: 200px;
+    word-wrap: break-word;
+    font-style: italic;
+    text-align: center;
 }
 
 .username{
@@ -97,7 +107,8 @@ body{
 }
 
 .NF{
-    font-size: 15px;
+    font-weight: bold;
+    font-size: 20px;
 }
 
 .gear{
