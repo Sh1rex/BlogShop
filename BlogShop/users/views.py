@@ -32,7 +32,7 @@ def profile(request, slug):
 
 def settings(request):
     if request.user.is_authenticated:
-        form = ProfileForm()
+        form = ProfileForm(instance=request.user.profile)
         return render(request, 'settings.html', {
             'form': form,
         })
