@@ -7,9 +7,9 @@
 
 {% block content %}
     <form action="{% url 'users:profile' user.profile.slug %}" method="post" enctype="multipart/form-data">
-        {{form}}
+        {{form.as_p}}
         {% csrf_token %}
-        <input type="submit" value="Change avatar" class="button-submit">
+        <input type="submit" value="Change settings" class="button-submit">
     </form>
     <form action="{% url 'logout' %}" method="post">
         {% csrf_token %}
