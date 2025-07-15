@@ -150,3 +150,12 @@ body{
     text-decoration: none;
     color: black;
 }
+
+.subscription-stat{
+    font-weight:500;
+}
+
+.subscription-stat-nums{
+    font-size: 20px;
+    font-weight: bold;
+}
