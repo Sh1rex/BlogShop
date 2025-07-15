@@ -6,6 +6,12 @@
 {% endblock title %}
 
 {% block content %}
+    {% block contentprofile %}
+    {% endblock contentprofile %}
+    Hello world!
+    <br>
+    <br>
+    <br>
     <div class="profile">
         <img src="{% if profile.profileimg %}
             {{profile.profileimg.url}}
@@ -15,11 +21,20 @@
         <div class="username">
             {{profile.user}}
         </div>
+        <div class="subscription-stat">
+            Subscribers: <span class="subscription-stat-nums">{{subscribers}}</span> Subscribed:<span class="subscription-stat-nums">{{subscribed}}</span>
+        </div>
+        <form action="" method="post">
+            {% csrf_token %}
+            <input type="submit" class="button-submit" value="Subscribe" name="Subscribe">
+        </form>
         <div class="NF">
             {{profile.user.first_name}} {{profile.user.last_name}}
         </div>
         <div class="description">
-            {{profile.description}}
+            {% if profile.description %}
+                {{profile.description}}
+            {% endif %}
         </div>
     </div>
 {% endblock content %}
