@@ -32,12 +32,8 @@ def profile(request, slug):
                 if not Subscription.objects.filter(subscriber=request.user, subscribed_to=profile.user):
                     subscription = Subscription.objects.create(subscriber=request.user, subscribed_to=profile.user)
                     subscription.save()
-    subscribers = Subscription.objects.filter(subscribed_to=profile.user).count()
-    subscribed = Subscription.objects.filter(subscriber=profile.user).count()
-    return render(request, 'users/mainprofile.html',{
-        'subscribers': subscribers,
+    return render(request, 'users/profile/mainprofile.html', {
         'profile': profile,
-        'subscribed': subscribed,
     })
 
 def settings(request):
@@ -47,3 +43,15 @@ def settings(request):
             'form': form,
         })
     return redirect('login')
+
+def subscribers(request, slug):
+    profile = get_object_or_404(Profile, slug=slug)
+    return render(request, 'users/profile/profilesubscribers.html', {
+        'profile': profile,
+    })
+
+def subscribed(request, slug):
+    profile = get_object_or_404(Profile, slug=slug)
+    return render(request, 'users/profile/profilesubscribed.html', {
+        'profile': profile,
+    })
