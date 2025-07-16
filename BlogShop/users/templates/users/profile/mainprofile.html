@@ -1,0 +1,10 @@
+{% extends "base.html" %}
+
+{% block title %}
+    {{user}}
+{% endblock title %}
+
+{% block content %}
+    Hello world!
+    {% include "users/profile.html" %}
+{% endblock content %}
