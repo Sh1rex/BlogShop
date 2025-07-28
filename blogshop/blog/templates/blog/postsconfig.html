@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}
+    profileconfig
+{% endblock title %}
+
+{% block content %}
+    {% for form in forms %}
+    <form action="{% url 'blog:editpost' form.instance.id %}" method="post">
+        {% csrf_token %}
+        {{form}}
+        <input type="submit" value="Edit" class="button-submit">
+    </form>
+    {% endfor %} 
+{% endblock content %}

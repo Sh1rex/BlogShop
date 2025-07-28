@@ -1,0 +1,11 @@
+{% extends "base.html" %}
+
+{% block content %}
+    {% for subscription in profile.user.subscriber.all %}
+        <a href="{% url 'users:profile' subscription.subscribed_to.profile.slug %}">
+            {{subscription.subscribed_to.username}},
+        </a>
+    {% endfor %}
+    <a href="{% url 'users:profile' profile.slug %}" class="back">Back</a>
+    {% include "users/profile.html" %}
+{% endblock content %}

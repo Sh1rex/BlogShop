@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}
+    Login
+{% endblock title %}
+
+{% block content %}
+    <form method="post">
+        {{ form }}
+        {% csrf_token %}
+        <input type="submit" value="Login" class="button-submit">
+    </form>
+    <a href="{% url 'password_reset' %}" class="reg-a">Forgot password?</a>
+    <a href="{% url 'users:register' %}" class="reg-a">Create new account</a>
+{% endblock content %}

@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}
+    Settings
+{% endblock title %}
+
+{% block content %}
+    <a href="{% url 'blog:createpost' %}">Craeate Post</a>
+    <a href="{% url 'blog:postsconfig' %}">Config posts</a>
+    <form action="{% url 'users:profile' user.profile.slug %}" method="post" enctype="multipart/form-data">
+        {{form.as_p}}
+        {% csrf_token %}
+        <input type="submit" value="Change settings" class="button-submit">
+    </form>
+    <form action="{% url 'logout' %}" method="post">
+        {% csrf_token %}
+        <input type="submit" value="Logout" class="button-submit">
+    </form>
+{% endblock content %}
