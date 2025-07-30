@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}
+    profileconfig
+{% endblock title %}
+
+{% block content %}
+    <a href="{% url 'blog:createpost' %}" class="button-submit">Craeate Post</a>
+    {% for form in forms %}
+    <form action="{% url 'blog:editpost' form.instance.id %}" method="post">
+        {% csrf_token %}
+        {{form}}
+        <input type="submit" value="Edit" class="button-submit">
+    </form>
+    <form action="{% url 'blog:postdelete' form.instance.id%}" method="post">
+        {% csrf_token %}
+        <input type="submit" value="Delete" class="button-delete">
+    </form>
+    {% endfor %} 
+{% endblock content %}

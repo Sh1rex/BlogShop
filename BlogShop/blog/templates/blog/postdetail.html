@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}
+    {{post}}
+{% endblock title %}
+
+{% block content %}
+    {{post.product}},
+    {{post.category}},
+    {{post.seller}},
+    {{post.description}},
+    {{post.price}},
+    {{post.quantity}},
+    {% include 'users/profile.html' %}
+{% endblock content %}

@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}
+    CreatePost
+{% endblock title %}
+
+{% block content %}
+    <form method="post">
+        {{form}}
+        {% csrf_token %}
+        <input type="submit" value="Create Post" class="button-submit">
+    </form>
+{% endblock content %}

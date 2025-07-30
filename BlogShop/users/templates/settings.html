@@ -6,6 +6,8 @@
 {% endblock title %}
 
 {% block content %}
+    <a href="{% url 'blog:createpost' %}" class="button-submit">Craeate Post</a>
+    <a href="{% url 'blog:postsconfig' %}" class="button-submit">Config posts</a>
     <form action="{% url 'users:profile' user.profile.slug %}" method="post" enctype="multipart/form-data">
         {{form.as_p}}
         {% csrf_token %}

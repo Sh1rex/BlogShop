@@ -1,11 +1,21 @@
 {% extends "base.html" %}
+{% load static %}
 
 {% block content %}
-    {% for subscription in profile.user.subscriber.all %}
-        <a href="{% url 'users:profile' subscription.subscribed_to.profile.slug %}">
-            {{subscription.subscribed_to.username}},
-        </a>
-    {% endfor %}
-    <a href="{% url 'users:profile' profile.slug %}" class="back">Back</a>
+    <ul>
+        {% for subscription in profile.user.subscriber.all %}
+            <li>
+                <a href="{% url 'users:profile' subscription.subscribed_to.profile.slug %}" class="subscription">
+                    {{subscription.subscribed_to.username}} 
+                    <img src="
+                    {% if subscription.subscribed_to.profile.profileimg %}
+                        {{subscription.subscribed_to.profile.profileimg.url}}
+                    {% else %}
+                        {% static 'img/profile-icon.jpg' %}
+                    {% endif %}" class="subscription-img">
+                </a>
+            </li>
+        {% endfor %}
+    </ul>
     {% include "users/profile.html" %}
 {% endblock content %}

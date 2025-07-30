@@ -1,27 +1,29 @@
 {% load static %}
-<div class="profile">
-    <img src="{% if profile.profileimg %}
-        {{profile.profileimg.url}}
-    {% else %}
-        {% static 'img/profile-icon.jpg' %}
-    {% endif %}" alt="" class="avatar">
-    <div class="username">
-        {{profile.user}}
+<a href="{% url 'users:profile' profile.slug %}" class="profile-a">
+    <div class="profile">
+        <img src="{% if profile.profileimg %}
+            {{profile.profileimg.url}}
+        {% else %}
+            {% static 'img/profile-icon.jpg' %}
+        {% endif %}" alt="" class="avatar">
+        <div class="username">
+            {{profile.user}}
+        </div>
+        <div class="subscription-stat">
+            <a href="{% url 'users:subscribers' profile.slug %}" class="reg-a">Subscribers: <span class="subscription-stat-nums">{{profile.user.subscribed_to.all.count}}</span></a>
+            <a href="{% url 'users:subscribed' profile.slug %}" class="reg-a">Subscribed:<span class="subscription-stat-nums">{{profile.user.subscriber.all.count}}</span></a>
+        </div>
+        <form action="{% url 'users:profile' profile.slug %}" method="post">
+            {% csrf_token %}
+            <input type="submit" class="button-submit" value="Subscribe" name="Subscribe">
+        </form>
+        <div class="NF">
+            {{profile.user.first_name}} {{profile.user.last_name}}
+        </div>
+        <div class="description">
+            {% if profile.description %}
+                {{profile.description}}
+            {% endif %}
+        </div>
     </div>
-    <div class="subscription-stat">
-        <a href="{% url 'users:subscribers' profile.slug %}" class="reg-a">Subscribers: <span class="subscription-stat-nums">{{profile.user.subscribed_to.all.count}}</span></a>
-         <a href="{% url 'users:subscribed' profile.slug %}" class="reg-a">Subscribed:<span class="subscription-stat-nums">{{profile.user.subscriber.all.count}}</span></a>
-    </div>
-    <form action="{% url 'users:profile' profile.slug %}" method="post">
-        {% csrf_token %}
-        <input type="submit" class="button-submit" value="Subscribe" name="Subscribe">
-    </form>
-    <div class="NF">
-        {{profile.user.first_name}} {{profile.user.last_name}}
-    </div>
-    <div class="description">
-        {% if profile.description %}
-            {{profile.description}}
-        {% endif %}
-    </div>
-</div>
+</a class="profile-a">

@@ -2,6 +2,7 @@ from django.shortcuts import render, redirect, get_object_or_404
 from .forms import UserCreationForm, ProfileForm
 from .models import Profile, Subscription
 from django.urls import reverse
+from blog.models import Post
 
 def register(request):
     if request.method == 'POST':
@@ -20,6 +21,7 @@ def own_profile(request):
              
 def profile(request, slug):
     profile = get_object_or_404(Profile, slug=slug)
+    posts = Post.objects.filter(avaible=True, seller=profile.user)
     if request.user.is_authenticated:
         if profile.user == request.user:
             if request.method == 'POST':
@@ -34,6 +36,7 @@ def profile(request, slug):
                     subscription.save()
     return render(request, 'users/profile/mainprofile.html', {
         'profile': profile,
+        'posts': posts,
     })
 
 def settings(request):
