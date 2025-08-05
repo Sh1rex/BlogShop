@@ -1,9 +1,15 @@
 from django.shortcuts import render, redirect, get_object_or_404
+from django.views.decorators.http import require_POST
+from django.contrib.auth.decorators import login_required
 from .forms import UserCreationForm, ProfileForm
 from .models import Profile, Subscription
 from django.urls import reverse
 from blog.models import Post
 
+def check_is_subscribed(subscriber, subscribed_to):
+    if Subscription.objects.filter(subscriber=subscriber, subscribed_to=subscribed_to):
+        return True
+    return False
 def register(request):
     if request.method == 'POST':
         form = UserCreationForm(request.POST)
@@ -22,21 +28,17 @@ def own_profile(request):
 def profile(request, slug):
     profile = get_object_or_404(Profile, slug=slug)
     posts = Post.objects.filter(avaible=True, seller=profile.user)
+    is_subscribed = check_is_subscribed(request.user, profile.user)
     if request.user.is_authenticated:
         if profile.user == request.user:
             if request.method == 'POST':
-                if not request.POST.get('Subscribe'):
-                    form = ProfileForm(request.POST, request.FILES, instance=profile)
-                    if form.is_valid():
-                        form.save()
-        else:
-            if request.method == 'POST':
-                if not Subscription.objects.filter(subscriber=request.user, subscribed_to=profile.user):
-                    subscription = Subscription.objects.create(subscriber=request.user, subscribed_to=profile.user)
-                    subscription.save()
+                form = ProfileForm(request.POST, request.FILES, instance=profile)
+                if form.is_valid():
+                    form.save()
     return render(request, 'users/profile/mainprofile.html', {
         'profile': profile,
         'posts': posts,
+        'is_subscribed': is_subscribed,
     })
 
 def settings(request):
@@ -49,12 +51,28 @@ def settings(request):
 
 def subscribers(request, slug):
     profile = get_object_or_404(Profile, slug=slug)
+    is_subscribed = check_is_subscribed(request.user, profile.user)
     return render(request, 'users/profile/profilesubscribers.html', {
         'profile': profile,
+        'is_subscribed': is_subscribed,
     })
 
 def subscribed(request, slug):
     profile = get_object_or_404(Profile, slug=slug)
+    is_subscribed = check_is_subscribed(request.user, profile.user)
     return render(request, 'users/profile/profilesubscribed.html', {
         'profile': profile,
+        'is_subscribed': is_subscribed,
     })
+
+@require_POST
+@login_required
+def subscribe(request, slug):
+    profile = get_object_or_404(Profile, slug=slug)
+    if not Subscription.objects.filter(subscriber=request.user, subscribed_to=profile.user):
+        subscription = Subscription.objects.create(subscriber=request.user, subscribed_to=profile.user)
+        subscription.save()
+    else:
+        subscription = get_object_or_404(Subscription, subscriber=request.user, subscribed_to=profile.user)
+        subscription.delete()
+    return redirect(reverse('users:profile', args=[profile.slug]))
