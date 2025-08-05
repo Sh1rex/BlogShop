@@ -205,3 +205,88 @@ body{
 .button-delete:hover{
     background-color: rgb(100, 0, 0);
 }
+
+.post-title{
+    font-weight: bold;
+    font-size: 50px;
+}
+
+.post-category{
+    font-style: italic;
+    font-weight:500;
+    color: black;
+    font-size: 25px;
+}
+
+.post-image{
+    width: 200px;
+}
+
+.post-description{
+    width: 400px;
+    word-wrap: break-word;
+}
+
+.post-price{
+    font-weight: bold;
+    font-size: 20px;
+}
+
+.post-quantity{
+    font-weight: bold;
+    font-size: 15px
+}
+
+.profile-post{
+    margin-top: 10px;
+    margin-bottom: 10px;
+    display: flex;
+}
+
+.profile-post a{
+    text-decoration: none;
+}
+
+.profile-post-title{
+    color: black;
+    font-weight: bold;
+    font-size: 20px;
+}
+
+.profile-post-image{
+    width: 150px;
+}
+
+.profile-post-price{
+    font-style: italic;
+    text-decoration: none;
+    color: black;
+}
+
+.profile-post:hover{
+    background-color: lightgray;
+    width:fit-content;
+    border-radius: 3px;
+    border-color: lightgray;
+    border-radius:5px;
+}
+
+.recommendations-posts{
+    display: flex;
+}
+
+.recommendations-post{
+    margin-right: 20px;
+}
+
+.recommendations-post a{
+    text-decoration: none;
+}
+
+.recommendations-post:hover{
+    background-color: lightgray;
+    width:fit-content;
+    border-radius: 3px;
+    border-color: lightgray;
+    border-radius:5px;
+}
