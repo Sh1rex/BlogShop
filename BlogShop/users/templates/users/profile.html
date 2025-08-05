@@ -13,9 +13,10 @@
             <a href="{% url 'users:subscribers' profile.slug %}" class="reg-a">Subscribers: <span class="subscription-stat-nums">{{profile.user.subscribed_to.all.count}}</span></a>
             <a href="{% url 'users:subscribed' profile.slug %}" class="reg-a">Subscribed:<span class="subscription-stat-nums">{{profile.user.subscriber.all.count}}</span></a>
         </div>
-        <form action="{% url 'users:profile' profile.slug %}" method="post">
+        <form action="{% url 'users:subscribe' profile.slug %}" method="post">
             {% csrf_token %}
-            <input type="submit" class="button-submit" value="Subscribe" name="Subscribe">
+            <input type="submit" class="{% if is_subscribed %}button-delete{% else %}button-submit{% endif %}"
+             value="{% if is_subscribed %} Unsubscribe {% else %} Subscribe{% endif %}">
         </form>
         <div class="NF">
             {{profile.user.first_name}} {{profile.user.last_name}}
