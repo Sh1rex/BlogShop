@@ -6,11 +6,11 @@
 {% endblock title %}
 
 {% block content %}
-    {{post.product}},
-    {{post.category}},
-    {{post.seller}},
-    {{post.description}},
-    {{post.price}},
-    {{post.quantity}},
+    <div class="post-title">{{post.product}}</div>
+    <a href="{{post.category.get_absolute_url}}" class="post-category">{{post.category}}</a>
+    {% if post.image%}<img src={{post.image.url}} class="post-image">{% endif %}
+    <div class="post-description">{{post.description}}</div>
+    <div class="post-price">{{post.price}}$</div>
+    <div class="post-quantity">Quantity:{{post.quantity}}</div>
     {% include 'users/profile.html' %}
 {% endblock content %}

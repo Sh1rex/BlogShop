@@ -8,7 +8,7 @@
 {% block content %}
     <a href="{% url 'blog:createpost' %}" class="button-submit">Craeate Post</a>
     {% for form in forms %}
-    <form action="{% url 'blog:editpost' form.instance.id %}" method="post">
+    <form action="{% url 'blog:editpost' form.instance.id %}" method="post" enctype="multipart/form-data">
         {% csrf_token %}
         {{form}}
         <input type="submit" value="Edit" class="button-submit">
