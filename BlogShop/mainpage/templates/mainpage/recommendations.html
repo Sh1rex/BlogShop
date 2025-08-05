@@ -6,5 +6,15 @@
 {% endblock title %}
 
 {% block content %}
-<h1>hello</h1>
+    <ul class="recommendations-posts">
+        {% for post in posts %}
+            <li class="recommendations-post">
+                <a href={{post.get_absolute_url}}>
+                    <div class="profile-post-title">{{post.product}}</div>
+                    {% if post.image %}<div><img src={{post.image.url}} class="profile-post-image"></div>{% endif %}
+                    <div class="profile-post-price">{{post.price}}$</div>
+                    </a>
+            </li>
+        {% endfor %}
+    </ul>
 {% endblock content %}
