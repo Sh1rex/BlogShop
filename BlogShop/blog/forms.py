@@ -5,10 +5,10 @@ class CreatePostForm(forms.ModelForm):
     class Meta:
         model = Post
         fields = '__all__'
-        exclude = ['created_at', 'updated_at', 'seller', 'slug', 'avaible']
+        exclude = ['created', 'updated', 'seller', 'slug', 'avaible']
 
 class ConfigPostForm(forms.ModelForm):
     class Meta:
         model = Post
         fields = '__all__'
-        exclude = ['created_at', 'updated_at', 'seller', 'slug']
+        exclude = ['created', 'updated', 'seller', 'slug']
