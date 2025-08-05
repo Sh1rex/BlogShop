@@ -12,6 +12,7 @@ urlpatterns = [
             path('', views.profile, name='profile'),
             path('subscribers/', views.subscribers, name='subscribers'),
             path('subscribed/', views.subscribed, name='subscribed'),
+            path('subscribe/', views.subscribe, name='subscribe')
         ])),
     ]))
 ]
