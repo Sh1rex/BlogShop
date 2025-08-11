@@ -16,19 +16,24 @@
             </div>
             <div class="user-box">
             {% if user.is_authenticated %}
+                <div>
+                    <a href="{% url 'payment:topupbalance' %}" class="a-header">
+                        {{user.balance.balance}}$
+                    </a>
+                </div>
                 <a href="{% url 'users:profile' user.profile.slug %}" class="user-link a-header">
-                        {{ user }}
-                    <img src="{% if user.profile.profileimg %}
-                        {{user.profile.profileimg.url}}
-                    {% else %}
-                        {% static 'img/profile-icon.jpg' %}
-                    {% endif %}" alt="" class="avatar">
-                    <div class="gear">
-                        <a href="{% url 'users:settings' %}" class="gear">
-                            <img src="{% static 'img/gear_PNG48.png' %}" alt="" class="gear-img">
-                        </a>
-                    </div>
+                    {{ user }}
+                <img src="{% if user.profile.profileimg %}
+                    {{user.profile.profileimg.url}}
+                {% else %}
+                    {% static 'img/profile-icon.jpg' %}
+                {% endif %}" alt="" class="avatar">
                 </a>
+                <div class="gear">
+                    <a href="{% url 'users:settings' %}" class="gear">
+                        <img src="{% static 'img/gear_PNG48.png' %}" alt="" class="gear-img">
+                    </a>
+                </div>
             {% else %}
                 <a href="{% url "login" %}" class="user-link a-header">Login</a>
             {% endif %}

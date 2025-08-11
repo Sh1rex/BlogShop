@@ -13,6 +13,9 @@ class Profile(models.Model):
             self.slug = slugify(self.user.username)
         super().save(*args, **kwargs)
 
+    def __str__(self):
+        return self.user.username
+
 class Subscription(models.Model):
     subscriber  = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name='subscriber')
     subscribed_to = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name='subscribed_to')

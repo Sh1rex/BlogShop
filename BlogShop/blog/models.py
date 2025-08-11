@@ -28,8 +28,7 @@ class Post(models.Model):
     updated = models.DateField(auto_now=True)
 
     def save(self, *args, **kwargs):
-        if not self.slug:
-            self.slug = slugify(self.product)
+        self.slug = slugify(self.product)
         super().save(*args, **kwargs)
 
     def __str__(self):

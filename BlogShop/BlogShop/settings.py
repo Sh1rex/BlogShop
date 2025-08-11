@@ -44,6 +44,7 @@ INSTALLED_APPS = [
     'mainpage.apps.MainpageConfig',
     'users.apps.UsersConfig',
     'blog.apps.BlogConfig',
+    'payment.apps.PaymentConfig',
 ]
 
 MIDDLEWARE = [
@@ -140,3 +141,7 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 MEDIA_URL = 'media/'
 
 MEDIA_ROOT = BASE_DIR / 'media'
+
+STRIPE_SECRET_KEY = 'sk_test_51RY5JCHCWvuX3iFfki3vIBpICyhmtb7C51q8hkQweUkOBrMOjIkqzZ1YwwotwXXqqY9lC0DEIzEGaM0BZZawPRaG00fBPyvEL0'
+STRIPE_PUBLISHABLE_KEU = 'pk_test_51RY5JCHCWvuX3iFfEUYYeWVA0Cv97N3SGIT9ft4B4zX0ZyacdxlZvF3tTr8wCD3knYeKyCx9Z43GyxmqahEhU56l007h8j5ut4'
+STRIPE_WEBHOOK_SECRET = 'whsec_1683be7a6e9f10ee7b081a68959c818a7996bb71daf688daeba90331497b7bfa'
