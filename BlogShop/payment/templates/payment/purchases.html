@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}
+    Orders
+{% endblock title %}
+
+{% block content %}
+    {% for purchase in purchases %}
+        {{purchase.product.seller}}, {{purchase.product.name}}, {{purchase.quantity}}, {{purchase.product.price}}, {{purchase.get_cost}}
+    {% endfor %}
+{% endblock content %}

@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}
+    Buy
+{% endblock title %}
+
+{% block content %}
+    {{product}}
+    Unitprice: {{product.price}}$
+    Total Quantity: {{product.quantity}}
+    <form action="{% url 'payment:purchaseproduct' product.id %}" method="post">
+        {{form}}
+        {% csrf_token %}
+        <input type="submit" class="button-submit" value="Confirm purchase">
+    </form>
+{% endblock content %}

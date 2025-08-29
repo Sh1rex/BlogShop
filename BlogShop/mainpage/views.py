@@ -3,7 +3,7 @@ from blog.models import Post, Category
 
 def recommendations(request, category_slug=None):
     category = None
-    posts = Post.objects.filter(avaible=True).order_by('-created')
+    posts = Post.objects.filter(avaible=True, quantity__gt=0).order_by('-created')
     if category_slug:
         category = get_object_or_404(Category, slug=category_slug)
         posts = posts.filter(category=category)

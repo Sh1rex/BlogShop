@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}
+    Orders
+{% endblock title %}
+
+{% block content %}
+    {% for order in orders %}
+        <h1>Product: {{order.product.product}}</h1>
+        <a href="{% url 'users:profile' order.user.profile.slug %}" class="reg-a">{{order.user}}</a>
+        <h3>Unit price: {{order.product.price}}, Qantity: {{order.quantity}}, Total price: {{order.get_cost}}</h3>
+        Email: {{order.email}}, Address: {{order.address}},
+        Postal code: {{order.postal_code}}, City: {{order.city}}, Date: {{order.created}}.
+    {% endfor %}
+{% endblock content %}

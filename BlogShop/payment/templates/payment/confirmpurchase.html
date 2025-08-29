@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}
+    confirm
+{% endblock title %}
+
+{% block content %}
+    {{transaction.product.price}}$,
+    {{transaction.quantity}},
+    {{transaction.get_cost}}$
+    <form action="{% url 'payment:confirmpurchase' transaction.id %}" method="post">
+        {% csrf_token %}
+        <input type="submit" value="Confirm" class="button-submit">
+    </form>
+{% endblock content %}
+

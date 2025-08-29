@@ -27,7 +27,7 @@ def own_profile(request):
              
 def profile(request, slug):
     profile = get_object_or_404(Profile, slug=slug)
-    posts = Post.objects.filter(avaible=True, seller=profile.user)
+    posts = Post.objects.filter(avaible=True, seller=profile.user, quantity__gt=0)
     is_subscribed = check_is_subscribed(request.user, profile.user)
     if request.user.is_authenticated:
         if profile.user == request.user:
