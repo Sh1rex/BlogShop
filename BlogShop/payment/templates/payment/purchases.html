@@ -6,7 +6,12 @@
 {% endblock title %}
 
 {% block content %}
+    <h1>Purchases:</h1>
     {% for purchase in purchases %}
-        {{purchase.product.seller}}, {{purchase.product.name}}, {{purchase.quantity}}, {{purchase.product.price}}, {{purchase.get_cost}}
+        <h2>Product: {{purchase.product.product}}</h2>
+        <a href="{% url 'users:profile' purchase.product.seller.profile.slug %}" class="reg-a">{{purchase.product.seller}}</a>
+        <h3>Unit price: {{purchase.product.price}} Quantity: {{purchase.quantity}} Total price: {{purchase.get_cost}}</h3>
+        Email: {{purchase.email}}, Address: {{purchase.address}},
+        Postal code: {{purchase.postal_code}}, City: {{purchase.city}}, Date: {{purchase.created}}.
     {% endfor %}
 {% endblock content %}

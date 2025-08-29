@@ -43,5 +43,8 @@ def stripe_webhook(request):
                 transaction.product.save()
                 balance = get_object_or_404(Balance, user=user)
                 balance.balance = 0
+                seller = get_object_or_404(Balance, user=transaction.product.seller)
+                seller.balance += transaction.get_cost()
                 balance.save()
+                seller.save()
     return HttpResponse(status=200)

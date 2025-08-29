@@ -81,12 +81,15 @@ def confirmpurchase(request, id=None):
         totalprice = transaction.get_cost()
         balance = get_object_or_404(Balance, user=request.user)
         if balance.balance >= totalprice:
+            seller = get_object_or_404(Balance, user=transaction.product.seller)
             balance.balance -= totalprice
+            seller.balance += totalprice
             transaction.paid = True 
             transaction.product.quantity -= transaction.quantity
             transaction.product.save()
             transaction.save()
             balance.save()
+            seller.save()
             return render(request, 'payment/success.html')
         else:
             success_url = request.build_absolute_uri(
