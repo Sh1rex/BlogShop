@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Category, Post, Comment
+from .models import Category, Post, Comment, SelectedPosts
 
 @admin.register(Category)
 class CategoryAdmin(admin.ModelAdmin):
@@ -14,3 +14,7 @@ class PostAdmin(admin.ModelAdmin):
 @admin.register(Comment)
 class CommentAdmin(admin.ModelAdmin):
     list_display = ['owner', 'receiver', 'category', 'stars']
+
+@admin.register(SelectedPosts)
+class SelectedPostsAdmin(admin.ModelAdmin):
+    list_display = ['user', 'post']

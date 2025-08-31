@@ -42,4 +42,12 @@ class Comment(models.Model):
     receiver = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name='receiver')
     category = models.ForeignKey(Category, on_delete=models.CASCADE) 
     text = models.CharField(max_length=200)
-    stars = models.PositiveSmallIntegerField(choices=[(i, str(i)) for i in range(1, 6)], default=1)  
+    stars = models.PositiveSmallIntegerField(choices=[(i, str(i)) for i in range(1, 6)], default=1)
+
+class SelectedPosts(models.Model):
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name='user')
+    post = models.ForeignKey(Post, on_delete=models.CASCADE, related_name='post')
+    class Meta:
+        constraints = [
+            models.UniqueConstraint(fields=['user', 'post'], name='unique_selectedposts')
+        ]

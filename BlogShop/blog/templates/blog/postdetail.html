@@ -13,5 +13,16 @@
     <div class="post-price">{{post.price}}$</div>
     <div class="post-quantity">Quantity:{{post.quantity}}</div>
     <a href="{% url 'payment:purchaseproduct' post.id%}" class="button-submit">Buy</a>
+    {% if if_selected %}
+        <form action="{% url 'blog:postselect' post.id%}" method="post">
+            {% csrf_token %}
+            <input type="submit" value="Select" class="button-submit">
+        </form>
+    {% else %}
+        <form action="{% url 'blog:postunselect' post.id%}" method="post">
+            {% csrf_token %}
+            <input type="submit" value="Unselect" class="button-delete">
+        </form>
+    {% endif %}
     {% include 'users/profile.html' %}
 {% endblock content %}

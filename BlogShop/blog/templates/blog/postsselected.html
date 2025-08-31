@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}
+    Selected Posts
+{% endblock title %}
+
+{% block content %}
+    <ul>
+        {% for post in posts %}
+            <li class="profile-post">
+                <a href={{post.post.get_absolute_url}}>
+                    <div class="profile-post-title">{{post.post.product}}</div>
+                    {% if post.post.image %}<div><img src={{post.post.image.url}} class="profile-post-image"></div>{% endif %}
+                    <div class="profile-post-price">{{post.post.price}}$</div>
+                </a>
+                <form action="{% url 'blog:postunselect' post.post.id%}" method="post">
+                    {% csrf_token %}
+                    <input type="submit" value="Unselect" class="button-delete">
+                </form>
+            </li>
+        {% endfor %}
+    </ul>
+{% endblock content %}

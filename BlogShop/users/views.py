@@ -12,6 +12,7 @@ def check_is_subscribed(subscriber, subscribed_to):
     if Subscription.objects.filter(subscriber=subscriber, subscribed_to=subscribed_to):
         return True
     return False
+
 def register(request):
     if request.method == 'POST':
         form = UserCreationForm(request.POST)
@@ -68,9 +69,12 @@ def subscribers(request, slug):
 def subscribed(request, slug):
     profile = get_object_or_404(Profile, slug=slug)
     is_subscribed = check_is_subscribed(request.user, profile.user)
+    comments = Comment.objects.filter(receiver=profile.user)
+    avg = comments.aggregate(avg=Avg('stars'))['avg']
     return render(request, 'users/profile/profilesubscribed.html', {
         'profile': profile,
         'is_subscribed': is_subscribed,
+        'avg': avg,
     })
 
 @require_POST

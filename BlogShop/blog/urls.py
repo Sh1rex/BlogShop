@@ -8,5 +8,8 @@ urlpatterns = [
     path('postsconfig/', views.postsconfig, name='postsconfig'),
     path('editpost/<int:post_id>', views.editpost, name='editpost'),
     path('postdetail/<int:id>/<slug:slug>/', views.postdetail, name='postdetail'),
-    path('postdelete/<int:post_id>/', views.postdelete, name='postdelete')
+    path('postdelete/<int:post_id>/', views.postdelete, name='postdelete'),
+    path('postselect/<int:id>/', views.postselect, name='postselect'),
+    path('postunselect/<int:id>/', views.postunselect, name='postunselect'),
+    path('postsselected', views.postsselected, name='postsselected'),
 ]

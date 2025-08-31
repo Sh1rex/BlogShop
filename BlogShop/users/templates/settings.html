@@ -6,6 +6,7 @@
 {% endblock title %}
 
 {% block content %}
+    <a href="{% url 'blog:postsselected' %}" class="button-submit">Selected Posts</a>
     <a href="{% url 'blog:createpost' %}" class="button-submit">Craeate Post</a>
     <a href="{% url 'blog:postsconfig' %}" class="button-submit">Config posts</a>
     <a href="{% url 'payment:topupbalance' %}" class="button-submit">Top Up Balance</a>
