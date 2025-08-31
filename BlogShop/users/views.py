@@ -4,7 +4,9 @@ from django.contrib.auth.decorators import login_required
 from .forms import UserCreationForm, ProfileForm
 from .models import Profile, Subscription
 from django.urls import reverse
-from blog.models import Post
+from blog.models import Post, Comment
+from blog.forms import CommentForm
+from django.db.models import Avg
 
 def check_is_subscribed(subscriber, subscribed_to):
     if Subscription.objects.filter(subscriber=subscriber, subscribed_to=subscribed_to):
@@ -29,6 +31,9 @@ def profile(request, slug):
     profile = get_object_or_404(Profile, slug=slug)
     posts = Post.objects.filter(avaible=True, seller=profile.user, quantity__gt=0)
     is_subscribed = check_is_subscribed(request.user, profile.user)
+    comments = Comment.objects.filter(receiver=profile.user)
+    avg = comments.aggregate(avg=Avg('stars'))['avg']
+    form_com = CommentForm()
     if request.user.is_authenticated:
         if profile.user == request.user:
             if request.method == 'POST':
@@ -39,6 +44,9 @@ def profile(request, slug):
         'profile': profile,
         'posts': posts,
         'is_subscribed': is_subscribed,
+        'form_com': form_com,
+        'comments': comments,
+        'avg': avg,
     })
 
 def settings(request):
@@ -76,3 +84,15 @@ def subscribe(request, slug):
         subscription = get_object_or_404(Subscription, subscriber=request.user, subscribed_to=profile.user)
         subscription.delete()
     return redirect(reverse('users:profile', args=[profile.slug]))
+
+@login_required
+@require_POST
+def rate(request, slug):
+    profile = get_object_or_404(Profile, slug=slug)
+    form = CommentForm(request.POST)
+    if form.is_valid():
+        com = form.save(commit=False)
+        com.owner = request.user
+        com.receiver = profile.user
+        com.save()
+        return redirect(reverse('users:profile', args=[profile.slug]))

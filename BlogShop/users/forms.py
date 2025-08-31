@@ -2,7 +2,6 @@ from django.contrib.auth.forms import UserCreationForm
 from django import forms
 from django.contrib.auth.models import User
 from .models import Profile
-from django.forms.widgets import Textarea
 
 class UserCreationForm(UserCreationForm):
     class Meta:
@@ -14,5 +13,5 @@ class ProfileForm(forms.ModelForm):
         model = Profile
         fields = ['profileimg', 'description']
         widgets = {
-            'description': Textarea()
+            'description': forms.Textarea()
         }

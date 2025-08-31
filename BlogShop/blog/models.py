@@ -35,4 +35,11 @@ class Post(models.Model):
         return self.product
 
     def get_absolute_url(self):
-        return reverse('blog:postdetail', args=[self.id, self.slug])   
+        return reverse('blog:postdetail', args=[self.id, self.slug])
+
+class Comment(models.Model):
+    owner = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name='owner')
+    receiver = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name='receiver')
+    category = models.ForeignKey(Category, on_delete=models.CASCADE) 
+    text = models.CharField(max_length=200)
+    stars = models.PositiveSmallIntegerField(choices=[(i, str(i)) for i in range(1, 6)], default=1)  

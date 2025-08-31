@@ -26,5 +26,13 @@
                 {{profile.description}}
             {% endif %}
         </div>
+        <div class="profile-stars">
+            {% if avg %}
+                {{avg|floatformat:1 }}
+            {% else %}
+                0
+            {% endif %}
+            ★
+        </div>
     </div>
 </a class="profile-a">

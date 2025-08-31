@@ -6,6 +6,7 @@
 {% endblock title %}
 
 {% block content %}
+    <h1>Posts:</h1>
     <ul>
         {% for post in posts %}
             <li class="profile-post">
@@ -13,9 +14,37 @@
                     <div class="profile-post-title">{{post.product}}</div>
                     {% if post.image %}<div><img src={{post.image.url}} class="profile-post-image"></div>{% endif %}
                     <div class="profile-post-price">{{post.price}}$</div>
-                    </a>
+                </a>
             </li>
         {% endfor %}
     </ul>
+    <h1>Comments:</h1>
+    {% if comments %}
+        <ul>
+            
+            {% for comment in comments %}
+                <li>
+                    <a href="{% url 'users:profile' comment.owner.profile.slug %}" class="comment-owner-a">{{comment.owner}}
+                    <img src="
+                        {% if comment.owner.profile.profileimg %}
+                            {{comment.owner.profile.profileimg.url}}
+                        {% else %}
+                            {% static 'img/profile-icon.jpg' %}
+                        {% endif %}" class="comment-img"></a>
+                    <a href="{{comment.category.get_absolute_url}}" class="reg-a">{{comment.category}}</a>
+                    <div class="comment-stars">{{comment.stars}}★</div>
+                    <div class="comment-text">{{comment.text}}</div>
+                </li>
+            {% endfor %}
+        </ul>
+    {% else %}
+        No comments
+    {% endif %}
+    <h1>Make a comment:</h1>
+    <form action="{% url 'users:rate' profile.slug %}" method="post">
+        {% csrf_token %}
+        {{form_com}}
+        <input type="submit" class="button-submit" value="Make a comment">
+    </form>
     {% include "users/profile.html" %}
 {% endblock content %}
